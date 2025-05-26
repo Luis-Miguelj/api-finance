@@ -1,0 +1,42 @@
+POST http://localhost:3333/users
+Content-Type: application/json
+
+{
+  "name": "Sanny",
+  "email": "sb@gmail.com",
+  "password": "password123"
+}
+
+###
+GET http://localhost:3333/users
+Content-Type: application/json
+###
+GET http://localhost:3333/users/98bb271b-3851-4d4a-b9e0-a738545ab480
+Content-Type: application/json
+
+###
+POST http://localhost:3333/login
+Content-Type: application/json
+
+{
+  "name": "Sanny",
+  "email": "sb@gmail.com",
+  "password": "password123"
+}
+
+###
+POST http://localhost:3333/finance/3058d724-e18b-4d19-bf5e-4eb7d1682814
+Content-Type: application/json
+
+{
+  "entrada": 350.50,
+  "saida": 200
+}
+
+###
+GET http://localhost:3333/finance/entradas/3058d724-e18b-4d19-bf5e-4eb7d1682814
+Content-Type: application/json
+
+###
+GET http://localhost:3333/finance/lucro/3058d724-e18b-4d19-bf5e-4eb7d1682814
+Content-Type: application/json
