@@ -4,7 +4,7 @@ import { t } from 'elysia'
 
 const finance = new Finance()
 export const getFinanceEntradas = server.get(
-  '/finance/entradas/:id',
+  '/finance/values/:id',
   async ({ params, status }) => {
     const { id } = params
     if (!id) {
@@ -15,6 +15,7 @@ export const getFinanceEntradas = server.get(
       return status(404, 'Finance not found')
     }
     return status(200, {
+      // id: financeData
       entradas: financeData.entradas ?? 0,
       saidas: financeData.saidas ?? 0,
     })

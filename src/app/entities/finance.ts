@@ -1,17 +1,18 @@
 import { type Finance as financeTypes, financeSchema } from '@/types/finance'
 import { prisma } from '@/infra/prisma'
 
-import { calcEntradas } from '@/app/services/finance/calc-entradas'
+import { calcFinance } from '@/app/services/finance/calc-finance'
 
 export class Finance {
   async createFinance(data: financeTypes) {
-    const { userId, entrada, saida } = financeSchema.parse(data)
+    const { userId, description, type, value } = financeSchema.parse(data)
 
     const finance = await prisma.finance.create({
       data: {
         userId,
-        entrada,
-        saida,
+        description,
+        type,
+        value,
       },
     })
 
@@ -23,8 +24,9 @@ export class Finance {
       finance: {
         id: finance.id,
         userId: finance.userId,
-        entrada: finance.entrada,
-        saida: finance.saida,
+        description: finance.description,
+        type: finance.type,
+        value: finance.value,
         createdAt: finance.createdAt,
       },
       message: 'Dados cadastrados com sucesso.',
@@ -41,15 +43,15 @@ export class Finance {
       return false
     }
 
-    const financeCalcEntradas = calcEntradas(finance)
+    const calcFinances = calcFinance(finance)
 
-    if (!financeCalcEntradas) {
+    if (!calcFinances) {
       return false
     }
 
     return {
-      entradas: financeCalcEntradas.entrada,
-      saidas: financeCalcEntradas.saida,
+      entradas: calcFinances.entrada,
+      saidas: calcFinances.saida,
     }
   }
   async getFinanceCompareLucro(id: string) {
@@ -62,13 +64,12 @@ export class Finance {
     if (!finance) {
       return false
     }
-    const financeCalcEntradas = calcEntradas(finance)
-    if (!financeCalcEntradas) {
+    const calcFinances = calcFinance(finance)
+    if (!calcFinances) {
       return false
     }
 
-    const lucro =
-      (financeCalcEntradas.entrada ?? 0) - (financeCalcEntradas.saida ?? 0)
+    const lucro = (calcFinances.entrada ?? 0) - (calcFinances.saida ?? 0)
 
     if (lucro < 0) {
       return {
@@ -81,6 +82,32 @@ export class Finance {
       lucro: lucro,
     }
   }
+
+  async getItemsFinance(id: string) {
+    const finance = await prisma.finance.findMany({
+      where: {
+        userId: id,
+      },
+    })
+
+    if (!finance) {
+      return false
+    }
+
+    const items = finance.map(items => {
+      return {
+        description: items.description,
+        type: items.type,
+        value: items.value,
+        createdAt: items.createdAt,
+      }
+    })
+
+    return {
+      items,
+    }
+  }
+
   async deleteFinance(id: string) {
     const finance = await prisma.finance.delete({
       where: {
@@ -96,14 +123,20 @@ export class Finance {
       message: 'Dados deletados com sucesso.',
     }
   }
-  async updateFinance(id: string, entrada: number, saida: number) {
+  async updateFinance(
+    id: string,
+    description: string,
+    type: string,
+    value: number
+  ) {
     const finance = await prisma.finance.update({
       where: {
         id,
       },
       data: {
-        entrada,
-        saida,
+        description,
+        type,
+        value,
         updatedAt: new Date(),
       },
     })

@@ -131,8 +131,9 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.FinanceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  entrada: 'entrada',
-  saida: 'saida',
+  description: 'description',
+  type: 'type',
+  value: 'value',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -145,11 +146,6 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 

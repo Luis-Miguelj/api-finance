@@ -2073,20 +2073,19 @@ export namespace Prisma {
   }
 
   export type FinanceAvgAggregateOutputType = {
-    entrada: number | null
-    saida: number | null
+    value: number | null
   }
 
   export type FinanceSumAggregateOutputType = {
-    entrada: number | null
-    saida: number | null
+    value: number | null
   }
 
   export type FinanceMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    entrada: number | null
-    saida: number | null
+    description: string | null
+    type: string | null
+    value: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2094,8 +2093,9 @@ export namespace Prisma {
   export type FinanceMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    entrada: number | null
-    saida: number | null
+    description: string | null
+    type: string | null
+    value: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2103,8 +2103,9 @@ export namespace Prisma {
   export type FinanceCountAggregateOutputType = {
     id: number
     userId: number
-    entrada: number
-    saida: number
+    description: number
+    type: number
+    value: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2112,20 +2113,19 @@ export namespace Prisma {
 
 
   export type FinanceAvgAggregateInputType = {
-    entrada?: true
-    saida?: true
+    value?: true
   }
 
   export type FinanceSumAggregateInputType = {
-    entrada?: true
-    saida?: true
+    value?: true
   }
 
   export type FinanceMinAggregateInputType = {
     id?: true
     userId?: true
-    entrada?: true
-    saida?: true
+    description?: true
+    type?: true
+    value?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2133,8 +2133,9 @@ export namespace Prisma {
   export type FinanceMaxAggregateInputType = {
     id?: true
     userId?: true
-    entrada?: true
-    saida?: true
+    description?: true
+    type?: true
+    value?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2142,8 +2143,9 @@ export namespace Prisma {
   export type FinanceCountAggregateInputType = {
     id?: true
     userId?: true
-    entrada?: true
-    saida?: true
+    description?: true
+    type?: true
+    value?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2238,8 +2240,9 @@ export namespace Prisma {
   export type FinanceGroupByOutputType = {
     id: string
     userId: string
-    entrada: number | null
-    saida: number | null
+    description: string
+    type: string
+    value: number
     createdAt: Date
     updatedAt: Date
     _count: FinanceCountAggregateOutputType | null
@@ -2266,8 +2269,9 @@ export namespace Prisma {
   export type FinanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    entrada?: boolean
-    saida?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2276,8 +2280,9 @@ export namespace Prisma {
   export type FinanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    entrada?: boolean
-    saida?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2286,8 +2291,9 @@ export namespace Prisma {
   export type FinanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    entrada?: boolean
-    saida?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2296,13 +2302,14 @@ export namespace Prisma {
   export type FinanceSelectScalar = {
     id?: boolean
     userId?: boolean
-    entrada?: boolean
-    saida?: boolean
+    description?: boolean
+    type?: boolean
+    value?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FinanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "entrada" | "saida" | "createdAt" | "updatedAt", ExtArgs["result"]["finance"]>
+  export type FinanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "description" | "type" | "value" | "createdAt" | "updatedAt", ExtArgs["result"]["finance"]>
   export type FinanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2321,8 +2328,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      entrada: number | null
-      saida: number | null
+      description: string
+      type: string
+      value: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["finance"]>
@@ -2751,8 +2759,9 @@ export namespace Prisma {
   interface FinanceFieldRefs {
     readonly id: FieldRef<"Finance", 'String'>
     readonly userId: FieldRef<"Finance", 'String'>
-    readonly entrada: FieldRef<"Finance", 'Float'>
-    readonly saida: FieldRef<"Finance", 'Float'>
+    readonly description: FieldRef<"Finance", 'String'>
+    readonly type: FieldRef<"Finance", 'String'>
+    readonly value: FieldRef<"Finance", 'Float'>
     readonly createdAt: FieldRef<"Finance", 'DateTime'>
     readonly updatedAt: FieldRef<"Finance", 'DateTime'>
   }
@@ -3197,8 +3206,9 @@ export namespace Prisma {
   export const FinanceScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    entrada: 'entrada',
-    saida: 'saida',
+    description: 'description',
+    type: 'type',
+    value: 'value',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3220,14 +3230,6 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3355,8 +3357,9 @@ export namespace Prisma {
     NOT?: FinanceWhereInput | FinanceWhereInput[]
     id?: StringFilter<"Finance"> | string
     userId?: StringFilter<"Finance"> | string
-    entrada?: FloatNullableFilter<"Finance"> | number | null
-    saida?: FloatNullableFilter<"Finance"> | number | null
+    description?: StringFilter<"Finance"> | string
+    type?: StringFilter<"Finance"> | string
+    value?: FloatFilter<"Finance"> | number
     createdAt?: DateTimeFilter<"Finance"> | Date | string
     updatedAt?: DateTimeFilter<"Finance"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -3365,8 +3368,9 @@ export namespace Prisma {
   export type FinanceOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    entrada?: SortOrderInput | SortOrder
-    saida?: SortOrderInput | SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -3378,8 +3382,9 @@ export namespace Prisma {
     OR?: FinanceWhereInput[]
     NOT?: FinanceWhereInput | FinanceWhereInput[]
     userId?: StringFilter<"Finance"> | string
-    entrada?: FloatNullableFilter<"Finance"> | number | null
-    saida?: FloatNullableFilter<"Finance"> | number | null
+    description?: StringFilter<"Finance"> | string
+    type?: StringFilter<"Finance"> | string
+    value?: FloatFilter<"Finance"> | number
     createdAt?: DateTimeFilter<"Finance"> | Date | string
     updatedAt?: DateTimeFilter<"Finance"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -3388,8 +3393,9 @@ export namespace Prisma {
   export type FinanceOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    entrada?: SortOrderInput | SortOrder
-    saida?: SortOrderInput | SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FinanceCountOrderByAggregateInput
@@ -3405,8 +3411,9 @@ export namespace Prisma {
     NOT?: FinanceScalarWhereWithAggregatesInput | FinanceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Finance"> | string
     userId?: StringWithAggregatesFilter<"Finance"> | string
-    entrada?: FloatNullableWithAggregatesFilter<"Finance"> | number | null
-    saida?: FloatNullableWithAggregatesFilter<"Finance"> | number | null
+    description?: StringWithAggregatesFilter<"Finance"> | string
+    type?: StringWithAggregatesFilter<"Finance"> | string
+    value?: FloatWithAggregatesFilter<"Finance"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Finance"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Finance"> | Date | string
   }
@@ -3473,8 +3480,9 @@ export namespace Prisma {
 
   export type FinanceCreateInput = {
     id?: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutFinancesInput
@@ -3483,16 +3491,18 @@ export namespace Prisma {
   export type FinanceUncheckedCreateInput = {
     id?: string
     userId: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FinanceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutFinancesNestedInput
@@ -3501,8 +3511,9 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3510,16 +3521,18 @@ export namespace Prisma {
   export type FinanceCreateManyInput = {
     id?: string
     userId: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FinanceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3527,8 +3540,9 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3625,15 +3639,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type UserScalarRelationFilter = {
@@ -3641,30 +3655,26 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type FinanceCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    entrada?: SortOrder
-    saida?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type FinanceAvgOrderByAggregateInput = {
-    entrada?: SortOrder
-    saida?: SortOrder
+    value?: SortOrder
   }
 
   export type FinanceMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    entrada?: SortOrder
-    saida?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3672,31 +3682,31 @@ export namespace Prisma {
   export type FinanceMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    entrada?: SortOrder
-    saida?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type FinanceSumOrderByAggregateInput = {
-    entrada?: SortOrder
-    saida?: SortOrder
+    value?: SortOrder
   }
 
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type FinanceCreateNestedManyWithoutUserInput = {
@@ -3755,8 +3765,8 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -3838,56 +3848,47 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type FinanceCreateWithoutUserInput = {
     id?: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FinanceUncheckedCreateWithoutUserInput = {
     id?: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3924,8 +3925,9 @@ export namespace Prisma {
     NOT?: FinanceScalarWhereInput | FinanceScalarWhereInput[]
     id?: StringFilter<"Finance"> | string
     userId?: StringFilter<"Finance"> | string
-    entrada?: FloatNullableFilter<"Finance"> | number | null
-    saida?: FloatNullableFilter<"Finance"> | number | null
+    description?: StringFilter<"Finance"> | string
+    type?: StringFilter<"Finance"> | string
+    value?: FloatFilter<"Finance"> | number
     createdAt?: DateTimeFilter<"Finance"> | Date | string
     updatedAt?: DateTimeFilter<"Finance"> | Date | string
   }
@@ -3980,32 +3982,36 @@ export namespace Prisma {
 
   export type FinanceCreateManyUserInput = {
     id?: string
-    entrada?: number | null
-    saida?: number | null
+    description: string
+    type: string
+    value: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FinanceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FinanceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FinanceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    entrada?: NullableFloatFieldUpdateOperationsInput | number | null
-    saida?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

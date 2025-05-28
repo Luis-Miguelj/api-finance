@@ -2,8 +2,9 @@ import { z } from 'zod'
 
 export const financeSchema = z.object({
   userId: z.string(),
-  entrada: z.number().optional() ?? z.null(),
-  saida: z.number().optional() ?? z.null(),
+  description: z.string(),
+  type: z.string(),
+  value: z.number(),
 })
 
 export type Finance = z.infer<typeof financeSchema>

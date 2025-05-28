@@ -7,12 +7,26 @@ export const createFinance = server.post(
   '/finance/:id',
   async ({ body, status, params }) => {
     const { id } = params
-    const { entrada, saida } = body
+    const { description, type, value } = body
+
+    const typeValue = await new Promise<string>((resolve, reject) => {
+      switch (type) {
+        case 'e':
+          resolve('entrada')
+          break
+        case 's':
+          resolve('saida')
+          break
+        default:
+          reject(new Error('Invalid type'))
+      }
+    })
 
     const registerFinance = await finance.createFinance({
       userId: id,
-      entrada,
-      saida,
+      description,
+      type: typeValue,
+      value,
     })
 
     if (!registerFinance) {
@@ -24,8 +38,9 @@ export const createFinance = server.post(
       data: {
         id: registerFinance.finance.id,
         userId: registerFinance.finance.userId,
-        entrada: registerFinance.finance.entrada ?? 0,
-        saida: registerFinance.finance.saida ?? 0,
+        description: registerFinance.finance.description,
+        type: registerFinance.finance.type,
+        valor: registerFinance.finance.value,
         createdAt: registerFinance.finance.createdAt,
       },
     })
@@ -35,8 +50,9 @@ export const createFinance = server.post(
       id: t.String(),
     }),
     body: t.Object({
-      entrada: t.Optional(t.Number()),
-      saida: t.Optional(t.Number()),
+      description: t.String(),
+      type: t.String(),
+      value: t.Number(),
     }),
     response: {
       400: t.String(),

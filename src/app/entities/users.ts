@@ -9,6 +9,12 @@ interface loginProps {
   password: string
 }
 
+interface updateUserProps {
+  name?: string
+  email?: string
+  password?: string
+}
+
 export class User {
   async create(data: UserType) {
     const { name, email, password } = userSchema.parse(data)
@@ -109,7 +115,7 @@ export class User {
     }
   }
 
-  async updateUser(id: string, data: UserType) {
+  async updateUser(id: string, data: updateUserProps) {
     const { name, email, password } = userSchema.parse(data)
     const emailVerify = await verifyUser(email)
 
