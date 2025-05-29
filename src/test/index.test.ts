@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test'
 
 describe('Teste de login', () => {
-  it('deve retornar um token', async () => {
-    const response = await fetch('http://localhost:3333/login', {
+  it('Deve retornar um token', async () => {
+    const response = await fetch('http://localhost:3333/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: 'sb@gmail.com',
+        email: 'luis@gmail.com',
         password: 'password123',
       }),
     })
@@ -18,5 +18,32 @@ describe('Teste de login', () => {
     const body = await response.json()
     expect(body).toHaveProperty('token')
     expect(typeof body.token).toBe('string')
+  })
+})
+
+describe('Teste de criação de finança', () => {
+  it('Deve criar uma nova finança', async () => {
+    const financeResponse = await fetch(
+      'http://localhost:3333/finance/e8161b14-0159-4646-93ec-d42f5b6732bb',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:
+            'eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImU4MTYxYjE0LTAxNTktNDY0Ni05M2VjLWQ0MmY1YjY3MzJiYiJ9.F53nlXqs5h95us7Rxd5m5YCkCFnFkgeei_xZmcB240M',
+        },
+        body: JSON.stringify({
+          description: 'Compra de material de escritório',
+          type: 'e',
+          value: 1500.5,
+        }),
+      }
+    )
+    expect(financeResponse.status).toBe(201)
+    const data = await financeResponse.json()
+    expect(data).toHaveProperty('message')
+    expect(data).toHaveProperty('data')
+
+    expect(typeof data.data).toBe('object')
   })
 })

@@ -3,6 +3,13 @@ import { prisma } from '@/infra/prisma'
 
 import { calcFinance } from '@/app/services/finance/calc-finance'
 
+interface UpdateFinance {
+  id: string
+  description: string
+  type: string
+  value: number
+}
+
 export class Finance {
   async createFinance(data: financeTypes) {
     const { userId, description, type, value } = financeSchema.parse(data)
@@ -123,12 +130,7 @@ export class Finance {
       message: 'Dados deletados com sucesso.',
     }
   }
-  async updateFinance(
-    id: string,
-    description: string,
-    type: string,
-    value: number
-  ) {
+  async updateFinance({ id, description, type, value }: UpdateFinance) {
     const finance = await prisma.finance.update({
       where: {
         id,

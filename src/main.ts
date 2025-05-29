@@ -15,6 +15,9 @@ import { deleteFinance } from '@/domains/endpoints/finance/delete-finance'
 import { updateUser } from '@/domains/endpoints/users/update-user'
 import { getItemsFinance } from '@/domains/endpoints/finance/get-items-finance'
 
+//import middleware
+import { middleware } from '@/infra/midleware'
+
 const port = 3333
 const app = new Elysia()
   //Routes GET endpoints
@@ -32,6 +35,9 @@ const app = new Elysia()
   .use(updateFinance)
   //Routes DELETE endpoints
   .use(deleteFinance)
+
+  // Middleware for logging requests
+  .use(middleware)
 
 app.use(
   swagger({

@@ -14,7 +14,13 @@ export const createFinance = server.post(
         case 'e':
           resolve('entrada')
           break
+        case 'entrada':
+          resolve('entrada')
+          break
         case 's':
+          resolve('saida')
+          break
+        case 'saida':
           resolve('saida')
           break
         default:

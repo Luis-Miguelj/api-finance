@@ -7,21 +7,40 @@ export const updateFinance = server.put(
   '/finance/:id',
   async ({ params, body, status }) => {
     const { id } = params
-    const { entrada, saida } = body
+    const { description, type, value } = body
 
     if (!id) {
       return status(400, 'ID é obrigatório')
     }
+    const typeValue = await new Promise<string>((resolve, reject) => {
+      switch (type) {
+        case 'e':
+          resolve('entrada')
+          break
+        case 'entrada':
+          resolve('entrada')
+          break
+        case 's':
+          resolve('saida')
+          break
+        case 'saida':
+          resolve('saida')
+          break
+        default:
+          reject(new Error('Invalid type'))
+      }
+    })
 
-    if ((entrada ?? 0) < 0 && (saida ?? 0) < 0) {
+    if ((value ?? 0) < 0) {
       return status(400, 'Números invalidos')
     }
 
-    const financeData = await finance.updateFinance(
+    const financeData = await finance.updateFinance({
       id,
-      entrada ?? 0,
-      saida ?? 0
-    )
+      description: description ?? '',
+      type: typeValue,
+      value: value ?? 0,
+    })
 
     if (!financeData) {
       return status(400, 'Erro ao atualizar os dados')
@@ -34,8 +53,9 @@ export const updateFinance = server.put(
       id: t.String(),
     }),
     body: t.Object({
-      entrada: t.Optional(t.Number({ error: 'Entrada deve ser um número' })),
-      saida: t.Optional(t.Number({ error: 'Saída deve ser um número' })),
+      description: t.Optional(t.String()),
+      type: t.String(),
+      value: t.Optional(t.Number()),
     }),
     response: {
       200: t.String(),
