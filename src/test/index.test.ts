@@ -29,8 +29,6 @@ describe('Teste de criação de finança', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            'eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImU4MTYxYjE0LTAxNTktNDY0Ni05M2VjLWQ0MmY1YjY3MzJiYiJ9.F53nlXqs5h95us7Rxd5m5YCkCFnFkgeei_xZmcB240M',
         },
         body: JSON.stringify({
           description: 'Compra de material de escritório',
