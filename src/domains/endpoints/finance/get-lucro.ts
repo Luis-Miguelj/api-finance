@@ -4,14 +4,20 @@ import { t } from 'elysia'
 
 const finance = new Finance()
 export const getLucro = server.get(
-  '/finance/lucro/:id',
-  async ({ params, status }) => {
-    const { id } = params
+  '/finance/lucro',
+  async ({ status, jwt, request }) => {
+    const token = request.headers.get('Authorization')
+    const verify = await jwt.verify(token as string)
 
-    if (!id) {
+    if (!verify) {
       return status(400, 'ID is required.')
     }
-    const financeData = await finance.getFinanceCompareLucro(id)
+
+    if (!verify.sub) {
+      return status(400, 'ID is required.')
+    }
+
+    const financeData = await finance.getFinanceCompareLucro(verify.sub)
     if (!financeData) {
       return status(404, 'Finance data not found.')
     }
@@ -22,9 +28,6 @@ export const getLucro = server.get(
     })
   },
   {
-    params: t.Object({
-      id: t.String(),
-    }),
     response: {
       200: t.Object({
         message: t.String(),

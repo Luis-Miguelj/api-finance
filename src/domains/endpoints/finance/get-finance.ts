@@ -4,13 +4,17 @@ import { t } from 'elysia'
 
 const finance = new Finance()
 export const getFinanceEntradas = server.get(
-  '/finance/values/:id',
-  async ({ params, status }) => {
-    const { id } = params
-    if (!id) {
+  '/finance/values',
+  async ({ status, jwt, request }) => {
+    const token = request.headers.get('Authorization')
+    const verify = await jwt.verify(token as string)
+    if (!verify) {
       return status(400, 'Bad Request')
     }
-    const financeData = await finance.getFinance(id)
+    if (!verify.sub) {
+      return status(400, 'Bad Request')
+    }
+    const financeData = await finance.getFinance(verify.sub)
     if (!financeData) {
       return status(404, 'Finance not found')
     }
@@ -21,9 +25,6 @@ export const getFinanceEntradas = server.get(
     })
   },
   {
-    params: t.Object({
-      id: t.String(),
-    }),
     response: {
       200: t.Object({
         entradas: t.Optional(t.Number()),

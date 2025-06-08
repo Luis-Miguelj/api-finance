@@ -4,10 +4,20 @@ import { t } from 'elysia'
 
 const finance = new Finance()
 export const createFinance = server.post(
-  '/finance/:id',
-  async ({ body, status, params }) => {
-    const { id } = params
+  '/finance',
+  async ({ body, status, jwt, request }) => {
     const { description, type, value } = body
+
+    const token = request.headers.get('Authorization')
+    const verify = await jwt.verify(token as string)
+
+    if (!verify) {
+      return status(400, 'Bad request')
+    }
+
+    if (!verify.sub) {
+      return status(400, 'Bad request')
+    }
 
     const typeValue = await new Promise<string>((resolve, reject) => {
       switch (type) {
@@ -29,7 +39,7 @@ export const createFinance = server.post(
     })
 
     const registerFinance = await finance.createFinance({
-      userId: id,
+      userId: verify.sub,
       description,
       type: typeValue,
       value,
@@ -52,9 +62,6 @@ export const createFinance = server.post(
     })
   },
   {
-    params: t.Object({
-      id: t.String(),
-    }),
     body: t.Object({
       description: t.String(),
       type: t.String(),

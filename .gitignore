@@ -31,6 +31,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+#token
+routes.http
+
 # vercel
 .vercel
 

@@ -4,11 +4,18 @@ import { t } from 'elysia'
 
 const finance = new Finance()
 export const getItemsFinance = server.get(
-  '/finance/:id',
-  async ({ params, status }) => {
-    const { id } = params
+  '/finance/items',
+  async ({ status, request, jwt }) => {
+    const token = request.headers.get('Authorization')
+    const verify = await jwt.verify(token as string)
+    if (!verify) {
+      return status(400, 'Bad Request')
+    }
+    if (!verify.sub) {
+      return status(400, 'Bad Request')
+    }
 
-    const financeData = await finance.getItemsFinance(id)
+    const financeData = await finance.getItemsFinance(verify.sub)
 
     if (!financeData) {
       return status(400, 'Bad Request')
@@ -17,9 +24,6 @@ export const getItemsFinance = server.get(
     return status(200, financeData.items)
   },
   {
-    params: t.Object({
-      id: t.String(),
-    }),
     response: {
       200: t.Array(
         t.Object({

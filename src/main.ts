@@ -16,7 +16,7 @@ import { updateUser } from '@/domains/endpoints/users/update-user'
 import { getItemsFinance } from '@/domains/endpoints/finance/get-items-finance'
 
 //import middleware
-import { middleware } from '@/infra/midleware'
+import { middleware } from '@/infra/middleware'
 
 const port = 3333
 const app = new Elysia()

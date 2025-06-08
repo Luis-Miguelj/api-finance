@@ -24,30 +24,28 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3333/finance/c7060be0-9b13-4678-b1ef-ade83a0db511
+POST http://localhost:3333/finance
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImM3MDYwYmUwLTliMTMtNDY3OC1iMWVmLWFkZTgzYTBkYjUxMSJ9.HgKeiWPCFwRQvXxRoRsAT1sQDPPN8v4zi_BYFQl-gho
 
 {
-  "description": "Venda de mercadorias",
-  "type": "s",
-  "value": 10500
+  "description": "Serviços prestados",
+  "type": "e",
+  "value": 11670.77
 }
 
 ###
-GET http://localhost:3333/finance/values/e8161b14-0159-4646-93ec-d42f5b6732bb
+GET http://localhost:3333/finance/values
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImU4MTYxYjE0LTAxNTktNDY0Ni05M2VjLWQ0MmY1YjY3MzJiYiJ9.F53nlXqs5h95us7Rxd5m5YCkCFnFkgeei_xZmcB240M
-
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImM3MDYwYmUwLTliMTMtNDY3OC1iMWVmLWFkZTgzYTBkYjUxMSJ9.HgKeiWPCFwRQvXxRoRsAT1sQDPPN8v4zi_BYFQl-gho
 
 ###
-GET http://localhost:3333/finance/c7060be0-9b13-4678-b1ef-ade83a0db511
+GET http://localhost:3333/finance/items
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImU4MTYxYjE0LTAxNTktNDY0Ni05M2VjLWQ0MmY1YjY3MzJiYiJ9.F53nlXqs5h95us7Rxd5m5YCkCFnFkgeei_xZmcB240M
-
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImM3MDYwYmUwLTliMTMtNDY3OC1iMWVmLWFkZTgzYTBkYjUxMSJ9.HgKeiWPCFwRQvXxRoRsAT1sQDPPN8v4zi_BYFQl-gho
 
 ###
-GET http://localhost:3333/finance/lucro/c7060be0-9b13-4678-b1ef-ade83a0db511
+GET http://localhost:3333/finance/lucro
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJiNjQiOnRydWUsInN1YiI6ImM3MDYwYmUwLTliMTMtNDY3OC1iMWVmLWFkZTgzYTBkYjUxMSJ9.HgKeiWPCFwRQvXxRoRsAT1sQDPPN8v4zi_BYFQl-gho
 
