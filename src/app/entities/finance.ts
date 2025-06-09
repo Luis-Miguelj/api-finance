@@ -103,6 +103,7 @@ export class Finance {
 
     const items = finance.map(items => {
       return {
+        id: items.id,
         description: items.description,
         type: items.type,
         value: items.value,

@@ -27,6 +27,7 @@ export const getItemsFinance = server.get(
     response: {
       200: t.Array(
         t.Object({
+          id: t.String(),
           description: t.String(),
           type: t.String(),
           value: t.Number(),
