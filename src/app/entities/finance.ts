@@ -114,34 +114,23 @@ export class Finance {
       where: {
         userId: id,
       },
+      include: {
+        categories: true,
+      },
     })
 
     if (!finance) {
       return false
     }
 
-    const items = await new Promise<FinanceItem[]>((resolve, reject) => {
-      const financeItems = finance.map(async items => {
-        const category = await prisma.category.findFirst({
-          where: {
-            financesId: items.id,
-          },
-        })
-
-        return {
-          id: items.id,
-          category: category?.name ?? 'Sem categoria',
-          type: items.type,
-          value: items.value,
-          createdAt: items.createdAt,
-        }
-      })
-
-      if (!financeItems) {
-        reject(false)
+    const items: FinanceItem[] = finance.map(item => {
+      return {
+        id: item.id,
+        category: item.categories[0]?.name ?? 'Sem categoria',
+        type: item.type,
+        value: item.value,
+        createdAt: item.createdAt,
       }
-
-      resolve(Promise.all(financeItems))
     })
 
     if (!items) {
