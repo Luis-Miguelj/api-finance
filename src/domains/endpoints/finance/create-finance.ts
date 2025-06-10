@@ -6,7 +6,7 @@ const finance = new Finance()
 export const createFinance = server.post(
   '/finance',
   async ({ body, status, jwt, request }) => {
-    const { description, type, value } = body
+    const { category, type, value } = body
 
     const token = request.headers.get('Authorization')
     const verify = await jwt.verify(token as string)
@@ -40,7 +40,7 @@ export const createFinance = server.post(
 
     const registerFinance = await finance.createFinance({
       userId: verify.sub,
-      description,
+      category,
       type: typeValue,
       value,
     })
@@ -54,7 +54,7 @@ export const createFinance = server.post(
       data: {
         id: registerFinance.finance.id,
         userId: registerFinance.finance.userId,
-        description: registerFinance.finance.description,
+        category: registerFinance.finance.category,
         type: registerFinance.finance.type,
         valor: registerFinance.finance.value,
         createdAt: registerFinance.finance.createdAt,
@@ -63,7 +63,7 @@ export const createFinance = server.post(
   },
   {
     body: t.Object({
-      description: t.String(),
+      category: t.String(),
       type: t.String(),
       value: t.Number(),
     }),

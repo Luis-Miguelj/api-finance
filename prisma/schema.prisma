@@ -15,15 +15,29 @@ model User {
   password  String
   createdAt DateTime @default(now())
   finances Finance[]
+  categories Category[]
 }
 
 model Finance {
   id String @id @default(uuid())
   userId String
-  description String
   type String
   value Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories Category[]
+
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String
+  userId String
+  financesId String
+  type String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  finance Finance @relation(fields: [financesId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

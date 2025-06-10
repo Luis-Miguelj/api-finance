@@ -10,7 +10,7 @@ import { getUserId } from '@/domains/endpoints/users/get-user-id'
 import { createFinance } from '@/domains/endpoints/finance/create-finance'
 import { getFinanceEntradas } from '@/domains/endpoints/finance/get-finance'
 import { getLucro } from '@/domains/endpoints/finance/get-lucro'
-import { updateFinance } from '@/domains/endpoints/finance/update-finance'
+// import { updateFinance } from '@/domains/endpoints/finance/update-finance'
 import { deleteFinance } from '@/domains/endpoints/finance/delete-finance'
 import { updateUser } from '@/domains/endpoints/users/update-user'
 import { getItemsFinance } from '@/domains/endpoints/finance/get-items-finance'
@@ -32,7 +32,7 @@ const app = new Elysia()
   .use(createFinance)
   //Routes PUT endpoints
   .use(updateUser)
-  .use(updateFinance)
+  // .use(updateFinance)
   //Routes DELETE endpoints
   .use(deleteFinance)
 

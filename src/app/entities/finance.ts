@@ -5,23 +5,42 @@ import { calcFinance } from '@/app/services/finance/calc-finance'
 
 interface UpdateFinance {
   id: string
-  description: string
+  category: string
   type: string
   value: number
 }
 
+interface FinanceItem {
+  id: string
+  category: string
+  type: string
+  value: number
+  createdAt: Date
+}
+
 export class Finance {
   async createFinance(data: financeTypes) {
-    const { userId, description, type, value } = financeSchema.parse(data)
-
+    const { userId, category, type, value } = financeSchema.parse(data)
     const finance = await prisma.finance.create({
       data: {
         userId,
-        description,
         type,
         value,
       },
     })
+
+    const categoryCreate = await prisma.category.create({
+      data: {
+        userId: finance.userId,
+        financesId: finance.id,
+        name: category,
+        type,
+      },
+    })
+
+    if (!categoryCreate) {
+      return false
+    }
 
     if (!finance) {
       return false
@@ -31,9 +50,9 @@ export class Finance {
       finance: {
         id: finance.id,
         userId: finance.userId,
-        description: finance.description,
         type: finance.type,
         value: finance.value,
+        category: categoryCreate.name,
         createdAt: finance.createdAt,
       },
       message: 'Dados cadastrados com sucesso.',
@@ -101,15 +120,33 @@ export class Finance {
       return false
     }
 
-    const items = finance.map(items => {
-      return {
-        id: items.id,
-        description: items.description,
-        type: items.type,
-        value: items.value,
-        createdAt: items.createdAt,
+    const items = await new Promise<FinanceItem[]>((resolve, reject) => {
+      const financeItems = finance.map(async items => {
+        const category = await prisma.category.findFirst({
+          where: {
+            financesId: items.id,
+          },
+        })
+
+        return {
+          id: items.id,
+          category: category?.name ?? 'Sem categoria',
+          type: items.type,
+          value: items.value,
+          createdAt: items.createdAt,
+        }
+      })
+
+      if (!financeItems) {
+        reject(false)
       }
+
+      resolve(Promise.all(financeItems))
     })
+
+    if (!items) {
+      return false
+    }
 
     return {
       items,
@@ -131,25 +168,24 @@ export class Finance {
       message: 'Dados deletados com sucesso.',
     }
   }
-  async updateFinance({ id, description, type, value }: UpdateFinance) {
-    const finance = await prisma.finance.update({
-      where: {
-        id,
-      },
-      data: {
-        description,
-        type,
-        value,
-        updatedAt: new Date(),
-      },
-    })
+  // async updateFinance({ id, , type, value }: UpdateFinance) {
+  //   const finance = await prisma.finance.update({
+  //     where: {
+  //       id,
+  //     },
+  //     data: {
+  //       type,
+  //       value,
+  //       updatedAt: new Date(),
+  //     },
+  //   })
 
-    if (!finance) {
-      return false
-    }
+  //   if (!finance) {
+  //     return false
+  //   }
 
-    return {
-      message: 'Dados atualizados com sucesso.',
-    }
-  }
+  //   return {
+  //     message: 'Dados atualizados com sucesso.',
+  //   }
+  // }
 }

@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const financeSchema = z.object({
   userId: z.string(),
-  description: z.string(),
+  category: z.string(),
   type: z.string(),
   value: z.number(),
 })
