@@ -26,21 +26,9 @@ export class Finance {
         userId,
         type,
         value,
+        category,
       },
     })
-
-    const categoryCreate = await prisma.category.create({
-      data: {
-        userId: finance.userId,
-        financesId: finance.id,
-        name: category,
-        type,
-      },
-    })
-
-    if (!categoryCreate) {
-      return false
-    }
 
     if (!finance) {
       return false
@@ -52,7 +40,7 @@ export class Finance {
         userId: finance.userId,
         type: finance.type,
         value: finance.value,
-        category: categoryCreate.name,
+        category: finance.category,
         createdAt: finance.createdAt,
       },
       message: 'Dados cadastrados com sucesso.',
@@ -114,9 +102,6 @@ export class Finance {
       where: {
         userId: id,
       },
-      include: {
-        categories: true,
-      },
     })
 
     if (!finance) {
@@ -126,7 +111,7 @@ export class Finance {
     const items: FinanceItem[] = finance.map(item => {
       return {
         id: item.id,
-        category: item.categories[0]?.name ?? 'Sem categoria',
+        category: item.category,
         type: item.type,
         value: item.value,
         createdAt: item.createdAt,
@@ -157,24 +142,25 @@ export class Finance {
       message: 'Dados deletados com sucesso.',
     }
   }
-  // async updateFinance({ id, , type, value }: UpdateFinance) {
-  //   const finance = await prisma.finance.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: {
-  //       type,
-  //       value,
-  //       updatedAt: new Date(),
-  //     },
-  //   })
+  async updateFinance({ id, category, type, value }: UpdateFinance) {
+    const finance = await prisma.finance.update({
+      where: {
+        id,
+      },
+      data: {
+        type,
+        value,
+        category,
+        updatedAt: new Date(),
+      },
+    })
 
-  //   if (!finance) {
-  //     return false
-  //   }
+    if (!finance) {
+      return false
+    }
 
-  //   return {
-  //     message: 'Dados atualizados com sucesso.',
-  //   }
-  // }
+    return {
+      message: 'Dados atualizados com sucesso.',
+    }
+  }
 }

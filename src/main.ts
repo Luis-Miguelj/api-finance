@@ -14,7 +14,8 @@ import { getLucro } from '@/domains/endpoints/finance/get-lucro'
 import { deleteFinance } from '@/domains/endpoints/finance/delete-finance'
 import { updateUser } from '@/domains/endpoints/users/update-user'
 import { getItemsFinance } from '@/domains/endpoints/finance/get-items-finance'
-
+import { getCategories } from '@/domains/endpoints/categories/getCategories'
+import { createCategories } from '@/domains/endpoints/categories/createCategories'
 //import middleware
 import { middleware } from '@/infra/middleware'
 
@@ -26,10 +27,12 @@ const app = new Elysia()
   .use(getItemsFinance)
   .use(getFinanceEntradas)
   .use(getLucro)
+  .use(getCategories)
   //Routes POST endpoints
   .use(login)
   .use(register)
   .use(createFinance)
+  .use(createCategories)
   //Routes PUT endpoints
   .use(updateUser)
   // .use(updateFinance)
