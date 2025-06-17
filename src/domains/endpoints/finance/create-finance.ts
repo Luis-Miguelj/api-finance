@@ -7,7 +7,9 @@ export const createFinance = server.post(
   '/finance',
   async ({ body, status, jwt, request }) => {
     const { category, type, value } = body
-
+    if (value < 0) {
+      return status(400, 'Valor não pode ser negativo.')
+    }
     const token = request.headers.get('Authorization')
     const verify = await jwt.verify(token as string)
 

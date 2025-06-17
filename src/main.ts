@@ -16,6 +16,7 @@ import { updateUser } from '@/domains/endpoints/users/update-user'
 import { getItemsFinance } from '@/domains/endpoints/finance/get-items-finance'
 import { getCategories } from '@/domains/endpoints/categories/getCategories'
 import { createCategories } from '@/domains/endpoints/categories/createCategories'
+import { getDashboard } from '@/domains/endpoints/dashboard/getDashboard'
 //import middleware
 import { middleware } from '@/infra/middleware'
 
@@ -28,6 +29,7 @@ const app = new Elysia()
   .use(getFinanceEntradas)
   .use(getLucro)
   .use(getCategories)
+  .use(getDashboard)
   //Routes POST endpoints
   .use(login)
   .use(register)

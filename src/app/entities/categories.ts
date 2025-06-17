@@ -4,6 +4,18 @@ import { categoriesSchema, type categoriesTypes } from '@/types/categories'
 export class Categories {
   async createCategory(data: categoriesTypes) {
     const { userId, name } = categoriesSchema.parse(data)
+
+    const existingCategory = await prisma.category.findFirst({
+      where: {
+        userId,
+        name,
+      },
+    })
+
+    if (existingCategory) {
+      return false
+    }
+
     const category = await prisma.category.create({
       data: {
         userId,

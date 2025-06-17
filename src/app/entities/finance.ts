@@ -57,7 +57,15 @@ export class Finance {
       return false
     }
 
-    const calcFinances = calcFinance(finance)
+    const financeMes = finance.filter(item => {
+      const date = new Date().getMonth() + 1
+
+      if (item.createdAt.getMonth() + 1 === date) {
+        return item
+      }
+    })
+
+    const calcFinances = calcFinance(financeMes)
 
     if (!calcFinances) {
       return false
@@ -101,6 +109,9 @@ export class Finance {
     const finance = await prisma.finance.findMany({
       where: {
         userId: id,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     })
 
