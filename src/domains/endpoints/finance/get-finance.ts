@@ -3,7 +3,7 @@ import { Finance } from '@/app/entities/finance'
 import { t } from 'elysia'
 
 const finance = new Finance()
-export const getFinanceEntradas = server.get(
+export const getFinance= server.get(
   '/finance/values',
   async ({ status, jwt, request }) => {
     const token = request.headers.get('Authorization')
@@ -14,6 +14,9 @@ export const getFinanceEntradas = server.get(
     if (!verify.sub) {
       return status(400, 'Bad Request')
     }
+
+    console.log('verify', verify)
+
     const financeData = await finance.getFinance(verify.sub)
     if (!financeData) {
       return status(404, 'Finance not found')

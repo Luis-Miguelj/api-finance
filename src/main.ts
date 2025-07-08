@@ -8,7 +8,7 @@ import { register } from '@/domains/endpoints/auth/register'
 import { getUser } from '@/domains/endpoints/users/get-user'
 import { getUserId } from '@/domains/endpoints/users/get-user-id'
 import { createFinance } from '@/domains/endpoints/finance/create-finance'
-import { getFinanceEntradas } from '@/domains/endpoints/finance/get-finance'
+import { getFinance } from '@/domains/endpoints/finance/get-finance'
 import { getLucro } from '@/domains/endpoints/finance/get-lucro'
 // import { updateFinance } from '@/domains/endpoints/finance/update-finance'
 import { deleteFinance } from '@/domains/endpoints/finance/delete-finance'
@@ -22,11 +22,36 @@ import { middleware } from '@/infra/middleware'
 
 const port = 3333
 const app = new Elysia()
+
+app.use(
+  swagger({
+    path: '/docs',
+    documentation: {
+      info: {
+        title: 'API de Finanças',
+        description: 'API para gerenciamento de ganhos e despesas pessoais.',
+        version: '1.0.0',
+      },
+    },
+    autoDarkMode: false,
+    provider: 'scalar',
+  })
+)
+
+app
+  .use(
+    cors({
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+  )
+
   //Routes GET endpoints
   .use(getUser)
   .use(getUserId)
   .use(getItemsFinance)
-  .use(getFinanceEntradas)
+  .use(getFinance)
   .use(getLucro)
   .use(getCategories)
   .use(getDashboard)
@@ -40,30 +65,8 @@ const app = new Elysia()
   // .use(updateFinance)
   //Routes DELETE endpoints
   .use(deleteFinance)
-
   // Middleware for logging requests
   .use(middleware)
-
-app.use(
-  swagger({
-    path: '/docs',
-    documentation: {
-      info: {
-        title: 'API de Finanças',
-        description: 'API para gerenciamento de ganhos e despesas pessoais.',
-        version: '1.0.0',
-      },
-    },
-    autoDarkMode: false,
-    provider: 'swagger-ui',
-  })
-)
-app.use(
-  cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  })
-)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`)

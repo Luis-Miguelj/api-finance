@@ -9,6 +9,8 @@ export const getLucro = server.get(
     const token = request.headers.get('Authorization')
     const verify = await jwt.verify(token as string)
 
+    console.log('verify', verify)
+
     if (!verify) {
       return status(400, 'ID is required.')
     }
@@ -23,15 +25,27 @@ export const getLucro = server.get(
     }
 
     return status(200, {
-      message: financeData.message,
-      lucro: financeData.lucro,
+      mes: {
+        message: financeData.mes.message,
+        lucroDoMes: financeData.mes.lucroDoMes,
+      },
+      ano: {
+        message: financeData.ano.message,
+        lucroAnual: financeData.ano.lucroAnual,
+      },
     })
   },
   {
     response: {
       200: t.Object({
-        message: t.String(),
-        lucro: t.Number(),
+        mes: t.Object({
+          message: t.String(),
+          lucroDoMes: t.Number(),
+        }),
+        ano: t.Object({
+          message: t.String(),
+          lucroAnual: t.Number(),
+        }),
       }),
       400: t.String(),
       404: t.String(),

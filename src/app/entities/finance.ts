@@ -71,6 +71,8 @@ export class Finance {
       return false
     }
 
+    console.log('calcFinances', calcFinances)
+
     return {
       entradas: calcFinances.entrada,
       saidas: calcFinances.saida,
@@ -86,22 +88,76 @@ export class Finance {
     if (!finance) {
       return false
     }
-    const calcFinances = calcFinance(finance)
-    if (!calcFinances) {
+
+    const financeMes = finance.filter(item => {
+      const date = new Date().getMonth() + 1
+
+      if (item.createdAt.getMonth() + 1 === date) {
+        return item
+      }
+    })
+    const calcFinanceAnual = calcFinance(finance)
+    const calcFinancesMesAtual = calcFinance(financeMes)
+    if (!calcFinancesMesAtual) {
+      return false
+    }
+    if (!calcFinanceAnual) {
       return false
     }
 
-    const lucro = (calcFinances.entrada ?? 0) - (calcFinances.saida ?? 0)
+    const lucroAnual =
+      (calcFinanceAnual.entrada ?? 0) - (calcFinanceAnual.saida ?? 0)
 
-    if (lucro < 0) {
+    const lucroMesAtual =
+      (calcFinancesMesAtual.entrada ?? 0) - (calcFinancesMesAtual.saida ?? 0)
+
+    if (lucroAnual < 0 && lucroMesAtual < 0) {
       return {
-        message: 'Você está no negativo',
-        lucro: lucro,
+        mes: {
+          message: 'Você está no negativo nesse mês',
+          lucroDoMes: lucroMesAtual,
+        },
+        ano: {
+          message: 'Você está no negativo',
+          lucroAnual,
+        },
+      }
+    }
+
+    if (lucroMesAtual < 0 && lucroAnual >= 0) {
+      return {
+        mes: {
+          message: 'Você está no negativo nesse mês',
+          lucroDoMes: lucroMesAtual,
+        },
+        ano: {
+          message: 'Você está no positivo',
+          lucroAnual,
+        },
+      }
+    }
+
+    if (lucroAnual < 0 && lucroMesAtual >= 0) {
+      return {
+        mes: {
+          message: 'Você está no positivo nesse mês',
+          lucroDoMes: lucroMesAtual,
+        },
+        ano: {
+          message: 'Você está no negativo',
+          lucroAnual,
+        },
       }
     }
     return {
-      message: 'Você está no positivo',
-      lucro: lucro,
+      mes: {
+        message: 'Você está no positivo nesse mês',
+        lucroDoMes: lucroMesAtual,
+      },
+      ano: {
+        message: 'Você está no positivo',
+        lucroAnual,
+      },
     }
   }
 

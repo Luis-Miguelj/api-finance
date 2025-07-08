@@ -14,3 +14,20 @@ export async function verifyUser(email: string) {
     }
   }
 }
+
+export async function verifyUserId(id: string) {
+  const userIdVerify = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  })
+
+  if (userIdVerify) {
+    return {
+      message: 'Esse usuário já está cadastrado',
+      response: true,
+    }
+  }
+
+  return false
+}

@@ -5,7 +5,7 @@ import { t } from 'elysia'
 const users = new User()
 
 export const getUserId = server.get(
-  '/users',
+  '/user',
   async ({ status, jwt, request }) => {
     const token = request.headers.get('Authorization')
     const verify = await jwt.verify(token as string)
