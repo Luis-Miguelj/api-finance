@@ -16,15 +16,12 @@ export class Dashboard {
     for (let mes = 1; mes <= mesAtual; mes++) {
       const financeMes = finance.filter(item => {
         const data = new Date(item.createdAt)
-        return (
-          data.getFullYear() === anoFiltrado &&
-          data.getMonth() + 1 === mes
-        )
+        return data.getFullYear() === anoFiltrado && data.getMonth() + 1 === mes
       })
 
       const total = calcFinance(financeMes) || { entrada: 0, saida: 0 }
 
-      const nomeMes = new Date(anoFiltrado, mes - 1).toLocaleString('default', {
+      const nomeMes = new Date(anoFiltrado, mes - 1).toLocaleString('pt-BR', {
         month: 'long',
       })
 
