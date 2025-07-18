@@ -3,7 +3,9 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/main.ts"
+    "dev": "bun run --watch src/main.ts",
+    "build": "bun build --target=bun --outfile=server.js ./src/main.ts",
+    "start": "bun run server.js"
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",

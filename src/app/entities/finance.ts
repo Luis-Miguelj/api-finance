@@ -71,8 +71,6 @@ export class Finance {
       return false
     }
 
-    console.log('calcFinances', calcFinances)
-
     return {
       entradas: calcFinances.entrada,
       saidas: calcFinances.saida,

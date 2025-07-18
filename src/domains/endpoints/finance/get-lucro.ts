@@ -9,8 +9,6 @@ export const getLucro = server.get(
     const token = request.headers.get('Authorization')
     const verify = await jwt.verify(token as string)
 
-    console.log('verify', verify)
-
     if (!verify) {
       return status(400, 'ID is required.')
     }
