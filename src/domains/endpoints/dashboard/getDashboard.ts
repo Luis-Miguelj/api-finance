@@ -26,8 +26,8 @@ export const getDashboard = server.get(
       200: t.Array(
         t.Object({
           month: t.String(),
-          entrada: t.Number(),
-          saida: t.Number(),
+          Entrada: t.Number(),
+          Saida: t.Number(),
         })
       ),
       400: t.String(),

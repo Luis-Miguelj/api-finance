@@ -1,5 +1,6 @@
 import { prisma } from '@/infra/prisma'
 import { calcFinance } from '../services/finance/calc-finance'
+import { formatToUpperCase } from '@/utils/functions/formatUpercase'
 
 export class Dashboard {
   async getDashboard(id: string) {
@@ -25,10 +26,12 @@ export class Dashboard {
         month: 'long',
       })
 
+      const formatedNomeMes = formatToUpperCase(nomeMes)
+
       valuesPerMonth.push({
-        month: nomeMes,
-        entrada: total.entrada,
-        saida: total.saida,
+        month: formatedNomeMes,
+        Entrada: total.entrada,
+        Saida: total.saida,
       })
     }
 
