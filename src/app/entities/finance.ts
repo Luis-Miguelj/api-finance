@@ -193,6 +193,9 @@ export class Finance {
   }
 
   async deleteFinance(id: string) {
+    if (!id) {
+      return false
+    }
     const finance = await prisma.finance.delete({
       where: {
         id,
