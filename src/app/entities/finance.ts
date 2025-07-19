@@ -112,7 +112,7 @@ export class Finance {
     if (lucroAnual < 0 && lucroMesAtual < 0) {
       return {
         mes: {
-          message: 'Você está negativo nesse mês',
+          message: 'Você está negativo esse mês',
           lucroDoMes: lucroMesAtual,
         },
         ano: {
@@ -125,7 +125,7 @@ export class Finance {
     if (lucroMesAtual < 0 && lucroAnual >= 0) {
       return {
         mes: {
-          message: 'Você está negativo nesse mês',
+          message: 'Você está negativo esse mês',
           lucroDoMes: lucroMesAtual,
         },
         ano: {
@@ -138,7 +138,7 @@ export class Finance {
     if (lucroAnual < 0 && lucroMesAtual >= 0) {
       return {
         mes: {
-          message: 'Você está positivo nesse mês',
+          message: 'Você está positivo esse mês',
           lucroDoMes: lucroMesAtual,
         },
         ano: {
@@ -149,7 +149,7 @@ export class Finance {
     }
     return {
       mes: {
-        message: 'Você está positivo nesse mês',
+        message: 'Você está positivo esse mês',
         lucroDoMes: lucroMesAtual,
       },
       ano: {
