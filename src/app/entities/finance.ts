@@ -5,7 +5,7 @@ import { calcFinance } from '@/app/services/finance/calc-finance'
 
 interface UpdateFinance {
   id: string
-  category: string
+  categoryId: string
   type: string
   value: number
 }
@@ -20,13 +20,13 @@ interface FinanceItem {
 
 export class Finance {
   async createFinance(data: financeTypes) {
-    const { userId, category, type, value } = financeSchema.parse(data)
+    const { userId, categoryId, type, value } = financeSchema.parse(data)
     const finance = await prisma.finance.create({
       data: {
         userId,
         type,
         value,
-        category,
+        categoryId,
       },
     })
 
@@ -40,7 +40,7 @@ export class Finance {
         userId: finance.userId,
         type: finance.type,
         value: finance.value,
-        category: finance.category,
+        categoryId: finance.categoryId,
         createdAt: finance.createdAt,
       },
       message: 'Dados cadastrados com sucesso.',
@@ -169,14 +169,33 @@ export class Finance {
       },
     })
 
+    const categories = await prisma.category.findMany({
+      where: {
+        userId: id,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    })
+
+    const categoryMap = new Map(
+      categories.map(category => [category.id, category])
+    )
+
     if (!finance) {
       return false
     }
 
     const items: FinanceItem[] = finance.map(item => {
+      const category = categoryMap.get(item.categoryId)
+      console.log(category)
+      if (!category) {
+        throw new Error(`Category not found for item ${item.id}`)
+      }
       return {
         id: item.id,
-        category: item.category,
+        category: category.name,
         type: item.type,
         value: item.value,
         createdAt: item.createdAt,
@@ -210,7 +229,7 @@ export class Finance {
       message: 'Dados deletados com sucesso.',
     }
   }
-  async updateFinance({ id, category, type, value }: UpdateFinance) {
+  async updateFinance({ id, categoryId, type, value }: UpdateFinance) {
     const finance = await prisma.finance.update({
       where: {
         id,
@@ -218,7 +237,7 @@ export class Finance {
       data: {
         type,
         value,
-        category,
+        categoryId,
         updatedAt: new Date(),
       },
     })

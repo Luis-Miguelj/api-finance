@@ -55,4 +55,44 @@ export class Categories {
 
     return returnCategories
   }
+
+  async deleteCategory(categoryId: string, userId: string) {
+    if (!categoryId || !userId) {
+      return false
+    }
+
+    const category = await prisma.category.deleteMany({
+      where: {
+        id: categoryId,
+        userId,
+      },
+    })
+
+    if (!category) {
+      return false
+    }
+
+    return true
+  }
+  async updateCategory(categoryId: string, userId: string, name: string) {
+    if (!categoryId || !userId || !name) {
+      return false
+    }
+
+    const category = await prisma.category.updateMany({
+      where: {
+        id: categoryId,
+        userId,
+      },
+      data: {
+        name,
+      },
+    })
+
+    if (!category) {
+      return false
+    }
+
+    return true
+  }
 }

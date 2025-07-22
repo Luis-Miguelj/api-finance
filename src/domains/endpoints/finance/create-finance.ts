@@ -6,7 +6,7 @@ const finance = new Finance()
 export const createFinance = server.post(
   '/finance',
   async ({ body, status, jwt, request }) => {
-    const { category, type, value } = body
+    const { categoryId, type, value } = body
     if (value < 0) {
       return status(400, 'Valor não pode ser negativo.')
     }
@@ -42,7 +42,7 @@ export const createFinance = server.post(
 
     const registerFinance = await finance.createFinance({
       userId: verify.sub,
-      category,
+      categoryId,
       type: typeValue,
       value,
     })
@@ -56,7 +56,7 @@ export const createFinance = server.post(
       data: {
         id: registerFinance.finance.id,
         userId: registerFinance.finance.userId,
-        category: registerFinance.finance.category,
+        category: registerFinance.finance.categoryId,
         type: registerFinance.finance.type,
         valor: registerFinance.finance.value,
         createdAt: registerFinance.finance.createdAt,
@@ -65,7 +65,7 @@ export const createFinance = server.post(
   },
   {
     body: t.Object({
-      category: t.String(),
+      categoryId: t.String(),
       type: t.String(),
       value: t.Number(),
     }),

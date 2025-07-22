@@ -19,6 +19,8 @@ import { createCategories } from '@/domains/endpoints/categories/createCategorie
 import { getDashboard } from '@/domains/endpoints/dashboard/getDashboard'
 //import middleware
 import { middleware } from '@/infra/middleware'
+import { deleteCategories } from './domains/endpoints/categories/deleteCategories'
+import { updateCategories } from './domains/endpoints/categories/updateCategories'
 
 const port = 3333
 const app = new Elysia()
@@ -63,8 +65,10 @@ app
   //Routes PUT endpoints
   .use(updateUser)
   .use(updateFinance)
+  .use(updateCategories)
   //Routes DELETE endpoints
   .use(deleteFinance)
+  .use(deleteCategories)
   // Middleware for logging requests
   .use(middleware)
 
